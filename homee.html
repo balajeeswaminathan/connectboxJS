@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<style>
+	table, th , td  {
+	  border: 1px solid grey;
+	  border-collapse: collapse;
+	  padding: 5px;
+	}
+	table tr:nth-child(odd) {
+	  background-color: #f1f1f1;
+	}
+	table tr:nth-child(even) {
+	  background-color: #ffffff;
+}
+</style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+    <link href="//localhost/chatClient/css/home.css" rel="stylesheet">
+<body>
+   
+   <div class="connUs-basicInfo">
+        <div class="connUs-profile-img"></div>
+        <div class="connUs-profile-name">test</div>
+    </div>
+    <div class="connUs-menu-cont">
+        <div class="connUs-menu connUs-profile">Profile</div>
+        <div class="connUs-menu connUs-friends" ng-click = "myFunction()">Friends</div>
+        <div class="connUs-menu connUs-photos">Photos</div>
+        <div class="connUs-menu connUs-msg">messages</div>
+    </div>
+    
+<table>
+  <tr class="data">
+    <td>{{ x.Name }}</td>
+    <td>{{ x.Country }}</td>
+  </tr>
+</table>
+
+<script>
+    
+    $(".connUs-friends").off("click").on("click",function(){
+		var username = $(".connUs-profile-name").text();
+    	$.ajax({
+		     type: "get",
+		     url: "http://localhost:8080/chat/user/friendList",
+		     data : "userName=" + username ,
+		     success: function(response){
+		    	 var obj = JSON.parse(response);
+				// Pass our data to the template
+ 				 //var theCompiledHtml = theTemplate(obj);
+				 //$('.data').html(theCompiledHtml);
+		       }
+		    });
+		});
+</script>
+ 
+</body>
+</html>
